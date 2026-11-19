@@ -132,4 +132,13 @@ const clarityTags = null;
   /* video: arranca cuando se ve */
   var v=document.querySelector("video");if(v){v.muted=true;try{v.play()}catch(e){}}
 })();
-</script></body></html>
+</script><!-- CUMPLE ROMI 20/11: aparece solo el 20/11 00:00-23:59 hora Uruguay (vista previa: ?cumple=1). Borrar este bloque después. -->
+<script>(function(){var I=Date.UTC(2026,10,20,3),F=Date.UTC(2026,10,21,3),n=Date.now();
+if(!(n>=I&&n<F)&&!/[?&]cumple=1/.test(location.search))return;
+function pon(){if(document.getElementById('cumple-banner'))return;
+var st=document.createElement('style');st.textContent='#cumple-banner{position:sticky;top:0;z-index:9999;background:linear-gradient(90deg,#5f4c94,#9b87c9 60%,#c9a24f);color:#fff;font:500 14px/1.4 Poppins,system-ui,sans-serif;text-align:center;padding:10px 40px 10px 14px;box-shadow:0 4px 14px rgba(95,76,148,.25)}#cumple-banner b{font-weight:700}#cumple-banner s{opacity:.75}#cumple-banner a{color:#fff;text-decoration:underline;white-space:nowrap}#cumple-banner .x{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:20px;cursor:pointer;line-height:1}';
+document.head.appendChild(st);var d=document.createElement('div');d.id='cumple-banner';
+d.innerHTML='🎂 <b>¡Hoy es mi cumple!</b> Por eso te regalo un descuento extra: el Journal a <b>11.11 USD</b> <s>50 USD</s> · pago único · solo hasta medianoche. <a href="https://cumple-romi.diario21.workers.dev" target="_blank" rel="noopener">Ver todos mis regalos 🎁</a><button class="x" aria-label="Cerrar">×</button>';
+d.querySelector('.x').onclick=function(){d.remove()};document.body.insertBefore(d,document.body.firstChild);}
+if(document.body)pon();else document.addEventListener('DOMContentLoaded',pon);})();</script>
+</body></html>
