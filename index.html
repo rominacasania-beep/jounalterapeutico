@@ -40,6 +40,7 @@ section{position:relative;padding-block:clamp(64px,9vw,110px)}
 .bf .cd{font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.04em}
 .bf .cd b{display:inline-block;min-width:1.6em;text-align:center;background:rgba(245,199,107,.12);border-radius:5px;padding:1px 3px;margin:0 1px}
 @media(max-width:600px){.bf{gap:8px;padding-block:7px;font-size:12px;flex-wrap:nowrap}.bf .txt{display:none}.bf::after{content:"−65 % termina en";order:1;white-space:nowrap}.bf .tag{white-space:nowrap;letter-spacing:.06em}.bf .cd{order:2}}
+.bf.postbf::after{content:"−65 % en tu journal"}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 /* ---------- buttons ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:520px;text-decoration:none;padding:19px 24px;border-radius:18px;background:var(--grad);color:#2a0b1e;font-weight:900;font-size:clamp(16px,2.4vw,19px);letter-spacing:.02em;box-shadow:0 14px 40px rgba(255,127,174,.38),inset 0 -3px 0 rgba(0,0,0,.12);position:relative;overflow:hidden;transition:transform .2s}
@@ -654,7 +655,18 @@ document.documentElement.classList.add('js');
     });
     if (cdt) cdt.textContent = 'Black Friday termina en ' + d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
   }
-  tick(); setInterval(tick, 1000);
+  /* Después del 30/11: «Black Friday» pasa a «Oferta especial» y se esconde el contador (pedido de Romi) */
+  function afterBF(){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())) {
+      n.nodeValue = n.nodeValue.replace(/BLACK FRIDAY/g, 'OFERTA ESPECIAL').replace(/Black Friday/g, 'Oferta especial');
+    }
+    cds.forEach(function(el){ el.style.display = 'none'; });
+    document.querySelectorAll('.bf .txt').forEach(function(el){ el.textContent = '−65 % en tu journal y todos los bonos'; });
+    var bfa = document.querySelector('.bf'); if (bfa) bfa.classList.add('postbf');
+    if (cdt) cdt.textContent = 'Oferta especial';
+  }
+  if (Date.now() >= END) afterBF(); else { tick(); var iv = setInterval(function(){ if (Date.now() >= END) { clearInterval(iv); afterBF(); } else tick(); }, 1000); }
 
   /* cosas que caen: destellos, pétalos y alguna estrella fugaz */
   var cv = document.getElementById('fall'), hero = document.querySelector('.hero');
