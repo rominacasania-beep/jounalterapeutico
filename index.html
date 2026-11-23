@@ -260,6 +260,41 @@ section{position:relative;padding-block:clamp(64px,9vw,110px)}
 .proofpop b{display:block;font-size:13.5px;line-height:1.25}
 .proofpop span{display:block;font-size:12px;color:#7a6683;margin-top:2px}
 .proofpop i{font-style:normal;color:#1f7a52;font-weight:800}
+.nsfig{margin:30px auto 0;max-width:420px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.nsfig svg{width:100%;max-width:340px;height:auto;overflow:visible}
+.nsfig .body{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.22);stroke-width:1.5}
+.nsfig .gyri{fill:none;stroke:rgba(80,20,60,.35);stroke-width:2;stroke-linecap:round}
+.nsfig .spine{stroke-width:5;stroke-linecap:round;transition:stroke .6s}
+.nsfig .org{transition:fill .6s,stroke .6s;stroke-width:1.5}
+.nsfig .nv path{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:6 7;transition:stroke .6s,opacity .6s}
+.nsfig .heart{transform-origin:168px 205px}
+.nsfig .halo-c{stop-color:#ff5c7a;transition:stop-color .6s}
+.nsfig.modo-alerta .spine{stroke:#ff6b8b}
+.nsfig.modo-alerta .nv.acc path{stroke:#ff8f6b;animation:nsflow .5s linear infinite}
+.nsfig.modo-alerta .nv.vago path{stroke:rgba(255,255,255,.12);animation:none}
+.nsfig.modo-alerta .org{fill:rgba(255,107,139,.25);stroke:#ff8fa3}
+.nsfig.modo-alerta .heart{animation:nsbeat .45s ease-in-out infinite;fill:#ff5c7a}
+.nsfig.modo-alerta .lung{animation:nsbreath 1.1s ease-in-out infinite}
+.nsfig.modo-alerta .pulses circle{fill:#ffd27a}
+.nsfig.modo-alerta .pulses-v{display:none}
+.nsfig.modo-calma .halo-c{stop-color:#8fe3c0}
+.nsfig.modo-calma .spine{stroke:#8fe3c0}
+.nsfig.modo-calma .nv.acc path{stroke:rgba(255,255,255,.12);animation:none}
+.nsfig.modo-calma .nv.vago path{stroke:#8fe3c0;stroke-width:3.2;animation:nsflow 2.6s linear infinite}
+.nsfig.modo-calma .org{fill:rgba(143,227,192,.18);stroke:#8fe3c0}
+.nsfig.modo-calma .heart{animation:nsbeat 1.4s ease-in-out infinite;fill:#8fe3c0}
+.nsfig.modo-calma .lung{animation:nsbreath 5s ease-in-out infinite}
+.nsfig.modo-calma .pulses{display:none}
+.nsfig.modo-calma .pulses-v circle{fill:#fff}
+@keyframes nsflow{to{stroke-dashoffset:-26}}
+@keyframes nsbeat{0%,100%{transform:scale(1)}40%{transform:scale(1.18)}}
+@keyframes nsbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.nsfig .lung{transform-box:fill-box;transform-origin:center}
+.nsfig-ctl{display:flex;gap:8px;background:rgba(0,0,0,.25);padding:5px;border-radius:999px}
+.nsfig-ctl button{font:inherit;font-weight:800;font-size:14px;border:0;border-radius:999px;padding:10px 16px;background:transparent;color:var(--muted);cursor:pointer}
+.nsfig-ctl button[aria-pressed="true"]{background:var(--glass2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.nsfig-ctl button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.nsfig-cap{text-align:center;color:var(--soft);font-size:15px;max-width:44ch;min-height:3em;margin:0}
 /* reveal */
 .rv{opacity:1;transform:none;transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .js .rv.pre{opacity:0;transform:translateY(26px)}
@@ -373,6 +408,57 @@ const clarityTags = null;
       <h2>Tenés un acelerador y un freno. <em>Y el freno se te olvidó.</em></h2>
       <p class="lead">Tu sistema nervioso tiene dos modos. Cuando vivís mucho tiempo acelerada, el cuerpo se queda en alerta aunque el peligro ya pasó. Por eso la cabeza sigue buscando problemas, sobre todo a la noche, cuando todo lo demás se calla.</p>
     </div>
+<div class="nsfig modo-alerta" id="nsfig">
+  <svg viewBox="0 0 320 420" role="img" aria-labelledby="nsfig-t">
+    <title id="nsfig-t">Ilustración del sistema nervioso: cerebro, médula y nervios que llegan al corazón, los pulmones y el estómago</title>
+    <defs>
+      <radialGradient id="nsg-brain" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ffd6e5"/><stop offset=".6" stop-color="#f38bb0"/><stop offset="1" stop-color="#8f52c9"/></radialGradient>
+      <radialGradient id="nsg-halo" cx="50%" cy="50%" r="50%"><stop offset="0" class="halo-c" stop-opacity=".55"/><stop offset="1" class="halo-c" stop-opacity="0"/></radialGradient>
+      <filter id="nsg-glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <circle cx="160" cy="200" r="190" fill="url(#nsg-halo)"/>
+    <!-- silueta -->
+    <path class="body" d="M160 18c-30 0-52 22-52 52 0 20 9 35 24 44l-6 18c-38 8-62 30-68 66l-14 92c-2 12 6 22 18 22h196c12 0 20-10 18-22l-14-92c-6-36-30-58-68-66l-6-18c15-9 24-24 24-44 0-30-22-52-52-52z"/>
+    <!-- cerebro -->
+    <g filter="url(#nsg-glow)">
+      <path fill="url(#nsg-brain)" d="M160 34c-10-8-27-6-33 6-12-1-21 9-19 21-9 5-10 19-2 25 0 11 11 18 21 15 6 8 20 9 27 2l6 1 6-1c7 7 21 6 27-2 10 3 21-4 21-15 8-6 7-20-2-25 2-12-7-22-19-21-6-12-23-14-33-6z"/>
+      <path class="gyri" d="M160 38v66M136 52c8 6 8 16 0 22M184 52c-8 6-8 16 0 22M124 78c10 2 16 10 14 20M196 78c-10 2-16 10-14 20"/>
+    </g>
+    <!-- médula -->
+    <path class="spine" d="M160 104V330"/>
+    <!-- órganos -->
+    <ellipse class="org lung" cx="130" cy="190" rx="20" ry="34"/>
+    <ellipse class="org lung" cx="190" cy="190" rx="20" ry="34"/>
+    <path class="org heart" d="M168 196c-6-9-20-6-19 4 1 8 13 15 19 20 6-5 18-12 19-20 1-10-13-13-19-4z"/>
+    <path class="org gut" d="M136 256c4-14 44-14 48 0 3 12-8 22-24 22s-27-10-24-22z"/>
+    <!-- nervios (acelerador: desde la médula) -->
+    <g class="nv acc">
+      <path d="M160 150C148 160 140 168 132 172"/><path d="M160 150c12 10 20 18 28 22"/>
+      <path d="M160 190c4 6 6 10 8 14"/><path d="M160 240c-8 6-14 12-18 22"/><path d="M160 240c8 6 14 12 18 22"/>
+      <path d="M160 290c-20 10-40 14-62 34"/><path d="M160 290c20 10 40 14 62 34"/>
+    </g>
+    <!-- nervio vago (freno: del tronco cerebral al corazón y la panza) -->
+    <g class="nv vago">
+      <path d="M152 106c-14 30-18 60-6 90 6 14 14 16 18 4"/>
+      <path d="M152 106c-18 44-20 100-6 150"/>
+    </g>
+    <!-- pulsos -->
+    <g class="pulses">
+      <circle r="3.2"><animateMotion class="am" dur="1.1s" repeatCount="indefinite" path="M160 104V330"/></circle>
+      <circle r="3.2"><animateMotion class="am" dur="1.4s" begin=".4s" repeatCount="indefinite" path="M160 150C148 160 140 168 132 172"/></circle>
+      <circle r="3.2"><animateMotion class="am" dur="1.3s" begin=".2s" repeatCount="indefinite" path="M160 240c8 6 14 12 18 22"/></circle>
+    </g>
+    <g class="pulses-v">
+      <circle r="3.6"><animateMotion dur="4.5s" repeatCount="indefinite" path="M152 106c-14 30-18 60-6 90 6 14 14 16 18 4"/></circle>
+      <circle r="3.6"><animateMotion dur="5.5s" begin="1.2s" repeatCount="indefinite" path="M152 106c-18 44-20 100-6 150"/></circle>
+    </g>
+  </svg>
+  <div class="nsfig-ctl" role="group" aria-label="Elegí el modo">
+    <button type="button" data-m="alerta" aria-pressed="true">⚡ Modo alerta</button>
+    <button type="button" data-m="calma" aria-pressed="false">🌿 Modo calma</button>
+  </div>
+  <p class="nsfig-cap" data-cap-alerta="El simpático acelera todo: el corazón late rápido, la respiración se corta y la cabeza busca peligros." data-cap-calma="El nervio vago, el gran freno del parasimpático, baja del cerebro al corazón y a la panza y le avisa al cuerpo que puede descansar.">El simpático acelera todo: el corazón late rápido, la respiración se corta y la cabeza busca peligros.</p>
+</div>
     <div class="ns-grid">
       <div class="pedal acc rv">
         <span class="lbl">El simpático · el «no tan simpático»</span>
@@ -439,10 +525,12 @@ const clarityTags = null;
       <div class="step rv"><span class="n">2</span><h3>Calmá el cuerpo</h3><p>Una respiración, un anclaje o un sonido de la app. Le das al sistema nervioso la señal de que el peligro pasó.</p></div>
       <div class="step rv"><span class="n">3</span><h3>Soltá y ordená</h3><p>Una página del journal para ponerle nombre a lo que sentís y decidir qué hacés con eso mañana. Y a dormir.</p></div>
     </div>
+    <p class="center" style="margin-top:34px;font-family:var(--disp);font-size:clamp(20px,3vw,26px)">Todo lo que vas a hacer <em>tiene base científica.</em></p>
     <div class="science">
       <div class="rv"><b>9 minutos antes</b>se durmieron quienes escribieron 5 minutos su lista de pendientes antes de acostarse. Universidad de Baylor, 2018.</div>
       <div class="rv"><b>Menos ansiedad</b>en personas que escribieron 15 minutos, 3 veces por semana, durante un mes. Smyth y otros, 2018.</div>
       <div class="rv"><b>5 minutos por día</b>de respiración con exhalación larga mejoraron el ánimo y bajaron la activación. Stanford, 2023.</div>
+      <div class="rv"><b>Más bienestar</b>en quienes escribieron cada semana por qué estaban agradecidas, frente a quienes anotaban molestias. Emmons y McCullough, 2003.</div>
     </div>
     <div class="gal" aria-label="Páginas reales del journal"><div class="gal-track">
       <img src="assets/1793393636439_descarga-2-d3b119cd.webp" alt="Página de Sacá todo de tu cabeza" loading="lazy">
@@ -720,6 +808,15 @@ document.documentElement.classList.add('js');
     pop.classList.add('show'); setTimeout(function(){ pop.classList.remove('show'); }, 5000);
   }
   /* apagado hasta conectarlo a ventas reales */
+
+  /* figura del sistema nervioso: alterna sola entre alerta y calma; se puede tocar */
+  var nf = document.getElementById('nsfig');
+  if (nf) {
+    var cap = nf.querySelector('.nsfig-cap'), btns = nf.querySelectorAll('.nsfig-ctl button'), auto = true;
+    function setM(m){ nf.classList.toggle('modo-alerta', m === 'alerta'); nf.classList.toggle('modo-calma', m === 'calma'); btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.m === m ? 'true' : 'false'); }); cap.textContent = cap.getAttribute('data-cap-' + m); }
+    btns.forEach(function(b){ b.addEventListener('click', function(){ auto = false; setM(b.dataset.m); }); });
+    var cur = 'alerta'; setInterval(function(){ if (!auto) return; cur = cur === 'alerta' ? 'calma' : 'alerta'; setM(cur); }, 6000);
+  }
   /* reloj de la madrugada que avanza */
   var ck = document.querySelector('[data-clock]'), mins = 7;
   setInterval(function(){ mins = mins >= 59 ? 7 : mins + 1; if (ck) ck.textContent = '3:' + pad(mins); }, 4000);
